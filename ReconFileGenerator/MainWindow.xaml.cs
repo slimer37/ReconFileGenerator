@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 
-namespace SolveFileGenerator
+namespace ReconFileGenerator
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -38,6 +38,19 @@ namespace SolveFileGenerator
         void ScrambleText_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             FilePreview.Text = ((TextBox)sender).Text;
+            
+            if (!string.IsNullOrEmpty(scrambleText))
+            {
+                var anyInvalid = false;
+                foreach (var move in scrambleText.Split(' '))
+                        anyInvalid = true;
+                        ScrambleTextInvalidWarning.Text = $"\"{move}\" doesn't look right.";
+                    }
+
+                ScrambleTextInvalidWarning.Visibility = anyInvalid ? Visibility.Visible : Visibility.Collapsed;
+            }
+            
+            FilePreview.Text = scrambleText;
         }
     }
 }
