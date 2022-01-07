@@ -23,6 +23,7 @@ namespace ReconFileGenerator
     public partial class MainWindow : Window
     {
         SaveFileDialog saveFileDialog = new() { Filter = "Text File (*.txt)|*.txt" };
+        ReconFileFormatter.Info info = new();
         
         public MainWindow() => InitializeComponent();
 
@@ -30,19 +31,22 @@ namespace ReconFileGenerator
         {
             if (saveFileDialog.ShowDialog() ?? false)
             {
-                OverwriteWarning.Visibility = File.Exists(saveFileDialog.FileName) ? Visibility.Visible : Visibility.Collapsed;
-                SaveFilePath.Text = "Will Save To: " + saveFileDialog.FileName;
+                ReconFileFormatter.CreateTextFile(info, saveFileDialog.FileName);
+                SavedText.Visibility = Visibility.Visible;
+                SavedText.Text = $"Created {saveFileDialog.SafeFileName}";
             }
         }
         
         void ScrambleText_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            FilePreview.Text = ((TextBox)sender).Text;
+            var scrambleText = ScrambleText.Text;
             
             if (!string.IsNullOrEmpty(scrambleText))
             {
                 var anyInvalid = false;
                 foreach (var move in scrambleText.Split(' '))
+                    if (move.Length != 0 && !ReconFileFormatter.IsValidMove(move))
+                    {
                         anyInvalid = true;
                         ScrambleTextInvalidWarning.Text = $"\"{move}\" doesn't look right.";
                     }
