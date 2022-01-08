@@ -25,7 +25,17 @@ public partial class MainWindow : Window
     SaveFileDialog saveFileDialog = new() { Filter = "Text File (*.txt)|*.txt" };
     ReconFileFormatter.Info info;
     
-    public MainWindow() => InitializeComponent();
+    const int AttachParentProcess = -1;
+
+    [System.Runtime.InteropServices.DllImport("kernel32.dll")]
+    static extern bool AttachConsole(int dwProcessId);
+    static void AttachToParentConsole() => AttachConsole(AttachParentProcess);
+    
+    public MainWindow()
+    {
+        InitializeComponent();
+        AttachToParentConsole();
+    }
 
     void SaveButton_OnClick(object sender, RoutedEventArgs e)
     {
