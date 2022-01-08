@@ -33,9 +33,9 @@ public static class Cube
         && "rludfbxyz".Contains(char.ToLower(move[0]))
         && (move.Length == 1 || "2'".Contains(move[1]));
     
-    public static Color[] GetF2LSet(Color crossColor)
+    public static Color[] GetF2LRing(Color crossColor)
     {
-        var allColors = Enum.GetValues(typeof(Color)).Cast<Color>().ToList();
+        var allColors = Enum.GetValues<Color>().Cast<Color>().ToList();
         allColors.Remove(crossColor);
         allColors.Remove(Opposites[crossColor]);
         return allColors.ToArray();
