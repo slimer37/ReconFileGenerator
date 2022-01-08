@@ -15,47 +15,46 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 
-namespace ReconFileGenerator
+namespace ReconFileGenerator;
+
+/// <summary>
+/// Interaction logic for MainWindow.xaml
+/// </summary>
+public partial class MainWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    SaveFileDialog saveFileDialog = new() { Filter = "Text File (*.txt)|*.txt" };
+    ReconFileFormatter.Info info;
+    
+    public MainWindow() => InitializeComponent();
+
+    void SaveButton_OnClick(object sender, RoutedEventArgs e)
     {
-        SaveFileDialog saveFileDialog = new() { Filter = "Text File (*.txt)|*.txt" };
-        ReconFileFormatter.Info info;
-        
-        public MainWindow() => InitializeComponent();
-
-        void SaveButton_OnClick(object sender, RoutedEventArgs e)
+        if (saveFileDialog.ShowDialog() ?? false)
         {
-            if (saveFileDialog.ShowDialog() ?? false)
-            {
-                ReconFileFormatter.CreateTextFile(info, saveFileDialog.FileName);
-                SavedText.Visibility = Visibility.Visible;
-                SavedText.Text = $"Created {saveFileDialog.SafeFileName}";
-            }
+            ReconFileFormatter.CreateTextFile(info, saveFileDialog.FileName);
+            SavedText.Visibility = Visibility.Visible;
+            SavedText.Text = $"Created {saveFileDialog.SafeFileName}";
         }
+    }
+    
+    void ScrambleText_OnTextChanged(object sender, TextChangedEventArgs e)
+    {
+        var scrambleText = ScrambleText.Text;
         
-        void ScrambleText_OnTextChanged(object sender, TextChangedEventArgs e)
+        if (!string.IsNullOrEmpty(scrambleText))
         {
-            var scrambleText = ScrambleText.Text;
-            
-            if (!string.IsNullOrEmpty(scrambleText))
-            {
-                var anyInvalid = false;
-                foreach (var move in scrambleText.Split(' '))
-                    if (move.Length != 0 && !ReconFileFormatter.IsValidMove(move))
-                    {
-                        anyInvalid = true;
-                        ScrambleTextInvalidWarning.Text = $"\"{move}\" doesn't look right.";
-                    }
+            var anyInvalid = false;
+            foreach (var move in scrambleText.Split(' '))
+                if (move.Length != 0 && !ReconFileFormatter.IsValidMove(move))
+                {
+                    anyInvalid = true;
+                    ScrambleTextInvalidWarning.Text = $"\"{move}\" doesn't look right.";
+                }
 
-                ScrambleTextInvalidWarning.Visibility = anyInvalid ? Visibility.Visible : Visibility.Collapsed;
-            }
-
-            info.scramble = scrambleText;
-            FilePreview.Text = scrambleText;
+            ScrambleTextInvalidWarning.Visibility = anyInvalid ? Visibility.Visible : Visibility.Collapsed;
         }
+
+        info.scramble = scrambleText;
+        FilePreview.Text = scrambleText;
     }
 }
