@@ -7,24 +7,20 @@ public static class ReconFileFormatter
     public struct Info
     {
         public string scramble;
+        public string inspectionRotation;
     }
 
     public static bool IsValidMove(string move) =>
         move.Length is 1 or 2
         && "rludfb".Contains(char.ToLower(move[0]))
         && (move.Length == 1 || "2'".Contains(move[1]));
-    
-    public static void CreateTextFile(Info i, string path)
-    {
-        using (var stream = File.CreateText(path))
-        {
-            stream.Write(
-$@"{i.scramble}
+
+    public static string GetText(Info i) =>
+        $@"{i.scramble}
 
 
 // Inspection
-(any rotation from scramble state to the desired starting orientation of
-the cube before starting the timer)
+${i.inspectionRotation}
 // [Color] Cross
 (Specify cross color and x-crosses e.g. Blue XX-Cross)
 
@@ -50,8 +46,11 @@ the cube before starting the timer)
 (e.g. 6.89tps)
 (Move Count/Time)
 [Name of Cube (Brand|Model)](e.g. Qiyi Valk M)
-[Date of Solve]"
-            );
-        }
+[Date of Solve]";
+
+    public static void CreateTextFile(Info i, string path)
+    {
+        using var stream = File.CreateText(path);
+        stream.Write(GetText(i));
     }
 }
