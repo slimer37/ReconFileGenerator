@@ -23,7 +23,7 @@ namespace ReconFileGenerator
     public partial class MainWindow : Window
     {
         SaveFileDialog saveFileDialog = new() { Filter = "Text File (*.txt)|*.txt" };
-        ReconFileFormatter.Info info = new();
+        ReconFileFormatter.Info info;
         
         public MainWindow() => InitializeComponent();
 
@@ -53,7 +53,8 @@ namespace ReconFileGenerator
 
                 ScrambleTextInvalidWarning.Visibility = anyInvalid ? Visibility.Visible : Visibility.Collapsed;
             }
-            
+
+            info.scramble = scrambleText;
             FilePreview.Text = scrambleText;
         }
     }
