@@ -10,11 +10,6 @@ public static class ReconFileFormatter
         public string inspectionRotation;
     }
 
-    public static bool IsValidMove(string move) =>
-        move.Length is 1 or 2
-        && "rludfb".Contains(char.ToLower(move[0]))
-        && (move.Length == 1 || "2'".Contains(move[1]));
-
     public static string GetText(Info i) =>
         $@"{i.scramble}
 
