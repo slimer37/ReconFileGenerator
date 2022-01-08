@@ -45,7 +45,7 @@ public partial class MainWindow : Window
         {
             var anyInvalid = false;
             foreach (var move in scrambleText.Split(' '))
-                if (move.Length != 0 && !ReconFileFormatter.IsValidMove(move))
+                if (move.Length != 0 && !Cube.IsValidMove(move))
                 {
                     anyInvalid = true;
                     ScrambleTextInvalidWarning.Text = $"\"{move}\" doesn't look right.";
