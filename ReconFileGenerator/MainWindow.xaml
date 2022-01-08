@@ -5,64 +5,60 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReconFileGenerator"
         mc:Ignorable="d"
-        Title="Recon Generator" Height="450" Width="800">
-    <StackPanel Margin="5">
+        Title="Recon Generator" Height="500" Width="800">
+    <Window.Resources>
+        <ControlTemplate x:Key="ColorList" TargetType="ComboBox">
+            <ComboBox>
+                <ComboBoxItem Content="Red" IsSelected="True"/>
+                <ComboBoxItem Content="Orange"/>
+                <ComboBoxItem Content="Yellow"/>
+                <ComboBoxItem Content="Green"/>
+                <ComboBoxItem Content="Blue"/>
+                <ComboBoxItem Content="White"/>
+            </ComboBox>
+        </ControlTemplate>
+    </Window.Resources>
+    <StackPanel Margin="10">
         <DockPanel>
             <Label Target="{Binding ElementName=ScrambleText}">Scramble</Label>
             <TextBox Name="ScrambleText" VerticalAlignment="Center" TextChanged="ScrambleText_OnTextChanged"></TextBox>
         </DockPanel>
         <TextBlock Name="ScrambleTextInvalidWarning" Foreground="Crimson" Visibility="Collapsed"/>
         
-        <Separator/>
-        
-        <Label>Cross Color</Label>
-        <ListBox>
-            <ListBoxItem>Red</ListBoxItem>
-            <ListBoxItem>Orange</ListBoxItem>
-            <ListBoxItem>Green</ListBoxItem>
-            <ListBoxItem>Blue</ListBoxItem>
-            <ListBoxItem>White</ListBoxItem>
-            <ListBoxItem>Yellow</ListBoxItem>
-        </ListBox>
+        <DockPanel LastChildFill="False">
+            <Label Target="{Binding ElementName=InspectionText}">Inspection Rotation</Label>
+            <TextBox Name="InspectionText" VerticalAlignment="Center" TextChanged="ScrambleText_OnTextChanged" Width="100"></TextBox>
+            <Label Margin="20,0,0,0">Cross Color</Label>
+            <ComboBox Template="{StaticResource ColorList}"/>
+        </DockPanel>
         
         <Separator/>
         
         <Grid>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition MaxWidth="50"/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             
-            <ListBox Grid.Column="0">
-                <ListBoxItem>Red</ListBoxItem>
-                <ListBoxItem>Orange</ListBoxItem>
-                <ListBoxItem>Green</ListBoxItem>
-                <ListBoxItem>Blue</ListBoxItem>
-                <ListBoxItem>White</ListBoxItem>
-                <ListBoxItem>Yellow</ListBoxItem>
-            </ListBox>
-            <ListBox Grid.Column="1">
-                <ListBoxItem>1</ListBoxItem>
-                <ListBoxItem>1</ListBoxItem>
-                <ListBoxItem>1</ListBoxItem>
-                <ListBoxItem>1</ListBoxItem>
-            </ListBox>
-            <ListBox Grid.Column="2">
-                <ListBoxItem>1</ListBoxItem>
-                <ListBoxItem>1</ListBoxItem>
-                <ListBoxItem>1</ListBoxItem>
-                <ListBoxItem>1</ListBoxItem>
-            </ListBox>
+            <Label VerticalAlignment="Center" HorizontalAlignment="Center">F2L</Label>
+            <StackPanel Grid.Column="1" VerticalAlignment="Top">
+                <ComboBox Name="f2l1" Template="{StaticResource ColorList}"/>
+                <TextBox></TextBox>
+            </StackPanel>
         </Grid>
         
-        <ScrollViewer>
+        <Separator/>
+        
+        <Label>Preview</Label>
+        <ScrollViewer Height="150">
             <TextBox IsReadOnly="True" Name="FilePreview"></TextBox>
         </ScrollViewer>
         
         <Separator/>
         
         <Button Click="SaveButton_OnClick" Content="Save To File" Padding="5"/>
-        <TextBlock Name="SavedText" FontWeight="Bold" Visibility="Collapsed" Foreground="Green"/>
+        <TextBlock Name="SavedText" FontWeight="Bold" Visibility="Hidden" Foreground="Green"/>
     </StackPanel>
 </Window>
