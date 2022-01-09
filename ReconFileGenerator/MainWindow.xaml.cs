@@ -33,8 +33,8 @@ public partial class MainWindow : Window
     
     public MainWindow()
     {
-        InitializeComponent();
         AttachToParentConsole();
+        InitializeComponent();
     }
 
     void SaveButton_OnClick(object sender, RoutedEventArgs e)
