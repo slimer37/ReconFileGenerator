@@ -5,60 +5,176 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReconFileGenerator"
         mc:Ignorable="d"
-        Title="Recon Generator" Height="500" Width="800">
+        Title="Recon Generator" Height="600" Width="900" ResizeMode="NoResize">
     <Window.Resources>
-        <ControlTemplate x:Key="ColorList" TargetType="ComboBox">
-            <ComboBox>
-                <ComboBoxItem Content="Red" IsSelected="True"/>
-                <ComboBoxItem Content="Orange"/>
-                <ComboBoxItem Content="Yellow"/>
-                <ComboBoxItem Content="Green"/>
-                <ComboBoxItem Content="Blue"/>
-                <ComboBoxItem Content="White"/>
-            </ComboBox>
-        </ControlTemplate>
+        <Style TargetType="Separator"><Setter Property="Height" Value="10"/></Style>
+        <Style TargetType="TextBox"><Setter Property="VerticalAlignment" Value="Center"/></Style>
     </Window.Resources>
-    <StackPanel Margin="10">
-        <DockPanel>
-            <Label Target="{Binding ElementName=ScrambleText}">Scramble</Label>
-            <TextBox Name="ScrambleText" VerticalAlignment="Center" TextChanged="ScrambleText_OnTextChanged"></TextBox>
-        </DockPanel>
-        <TextBlock Name="ScrambleTextInvalidWarning" Foreground="Crimson" Visibility="Collapsed"/>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         
-        <DockPanel LastChildFill="False">
-            <Label Target="{Binding ElementName=InspectionText}">Inspection Rotation</Label>
-            <TextBox Name="InspectionText" VerticalAlignment="Center" TextChanged="ScrambleText_OnTextChanged" Width="100"></TextBox>
-            <Label Margin="20,0,0,0">Cross Color</Label>
-            <ComboBox Template="{StaticResource ColorList}"/>
-        </DockPanel>
-        
-        <Separator/>
-        
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition MaxWidth="50"/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+        <StackPanel Margin="10">
+            <DockPanel>
+                <Label>Scramble</Label>
+                <TextBox Name="ScrambleText" TextChanged="ScrambleText_OnTextChanged"></TextBox>
+            </DockPanel>
+            <TextBlock Name="ScrambleTextInvalidWarning" Foreground="Crimson" Visibility="Collapsed"/>
             
-            <Label VerticalAlignment="Center" HorizontalAlignment="Center">F2L</Label>
-            <StackPanel Grid.Column="1" VerticalAlignment="Top">
-                <ComboBox Name="f2l1" Template="{StaticResource ColorList}"/>
-                <TextBox></TextBox>
-            </StackPanel>
-        </Grid>
+            <DockPanel LastChildFill="False">
+                <Label>Inspection Rotation</Label>
+                <TextBox Name="InspectionText" TextChanged="General_OnTextChanged" Width="50"></TextBox>
+            </DockPanel>
+            
+            <Separator/>
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                
+                <DockPanel>
+                    <Label Width="80">Cross Color</Label>
+                    <ComboBox Name="CrossColor" SelectionChanged="CrossColor_OnSelectionChanged" Loaded="CrossColor_OnLoaded" MinWidth="50"/>
+                </DockPanel>
+                
+                <DockPanel Grid.Column="1">
+                    <Label>X-Cross</Label>
+                    <ComboBox Name="XCross" SelectionChanged="XCross_OnSelectionChanged">
+                        <ComboBoxItem IsSelected="True">None</ComboBoxItem>
+                        <ComboBoxItem>X</ComboBoxItem>
+                        <ComboBoxItem>XX</ComboBoxItem>
+                        <ComboBoxItem>XXX</ComboBoxItem>
+                        <ComboBoxItem>XXXX</ComboBoxItem>
+                    </ComboBox>
+                </DockPanel>
+                
+            </Grid>
+            
+            <DockPanel>
+                <Label Width="80">Cross Moves</Label>
+                <TextBox Name="CrossMoves" TextChanged="General_OnTextChanged"/>
+            </DockPanel>
+            
+            <Separator/>
+            
+            <Label HorizontalAlignment="Center">F2L</Label>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox Name="F2L11"/>
+                        <ComboBox Grid.Column="1" Name="F2L12"/>
+                    </Grid>
+                    <DockPanel>
+                        <Label>Moves</Label>
+                        <TextBox/>
+                    </DockPanel>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Margin="0,0,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox Name="F2L21"/>
+                        <ComboBox Grid.Column="1" Name="F2L22"/>
+                    </Grid>
+                    <DockPanel>
+                        <Label>Moves</Label>
+                        <TextBox/>
+                    </DockPanel>
+                </StackPanel>
+                <StackPanel Grid.Column="2" Margin="10,0,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox Name="F2L31"/>
+                        <ComboBox Grid.Column="1" Name="F2L32"/>
+                    </Grid>
+                    <DockPanel>
+                        <Label>Moves</Label>
+                        <TextBox/>
+                    </DockPanel>
+                </StackPanel>
+            </Grid>
+            
+            <Separator/>
+            
+            <DockPanel>
+                <Label Width="40" HorizontalContentAlignment="Center">OLL</Label>
+                <CheckBox Name="OLLSkip" Click="OLLSkip_OnClick" VerticalAlignment="Center" Margin="0,0,5,0">Skip</CheckBox>
+                <ComboBox Name="OLLShape" SelectionChanged="OLLShape_OnSelectionChanged" Loaded="OLLShape_OnLoaded"></ComboBox>
+                <Label>Pre-AUF</Label>
+                <TextBox Name="OLLPreAUF" MinWidth="30" TextChanged="General_OnTextChanged"/>
+                <Label>Moves</Label>
+                <TextBox Name="OLLMoves" TextChanged="General_OnTextChanged"/>
+            </DockPanel>
+            
+            <Separator/>
+            
+            <DockPanel>
+                <Label Width="40" HorizontalContentAlignment="Center">PLL</Label>
+                <CheckBox Name="PLLSkip" Click="PLLSkip_OnClick" VerticalAlignment="Center" Margin="0,0,5,0">Skip</CheckBox>
+                <ComboBox Name="PLLPerm" SelectionChanged="PLLPerm_OnSelectionChanged" Loaded="PLLPerm_OnLoaded"></ComboBox>
+                <Label>Pre-AUF</Label>
+                <TextBox Name="PLLPreAUF" MinWidth="30" TextChanged="General_OnTextChanged"/>
+                <Label>Moves</Label>
+                <TextBox Name="PLLMoves" TextChanged="General_OnTextChanged"/>
+            </DockPanel>
+            
+            <DockPanel Name="AUFInput" MaxWidth="100" IsEnabled="False">
+                <Label>AUF</Label>
+                <TextBox Name="AUF" TextChanged="General_OnTextChanged"/>
+            </DockPanel>
+            
+            <Separator/>
+            
+            <DockPanel>
+                <Label>Cube Name</Label>
+                <TextBox Name="CubeName" TextChanged="General_OnTextChanged" MinWidth="150"></TextBox>
+            </DockPanel>
+            
+            <DockPanel LastChildFill="False">
+                <Label>Date</Label>
+                <DatePicker Name="Date" VerticalAlignment="Center" SelectedDateChanged="Date_OnSelectedDateChanged"/>
+                
+                <Label>Time (M:S | M.S)</Label>
+                <TextBox Name="Time" TextChanged="General_OnTextChanged" Width="50"></TextBox>
+            </DockPanel>
+            <TextBlock Name="TimeFormatWarning" Foreground="Crimson" Visibility="Collapsed">Could not parse time.</TextBlock>
+            
+            <Separator/>
+            <TextBlock Name="Stats" FontWeight="Bold"/>
+            <Separator/>
+            
+            <Button Click="SaveButton_OnClick" Content="Save To File" Padding="5"/>
+            <TextBlock Name="SavedText" FontWeight="Bold" Visibility="Hidden" Foreground="Green"/>
+        </StackPanel>
         
-        <Separator/>
+        <StackPanel Grid.Column="1">
+            <Label>Preview</Label>
+            <ScrollViewer Height="500">
+                <TextBox IsReadOnly="True" Name="FilePreview" VerticalAlignment="Stretch"></TextBox>
+            </ScrollViewer>
+        </StackPanel>
         
-        <Label>Preview</Label>
-        <ScrollViewer Height="150">
-            <TextBox IsReadOnly="True" Name="FilePreview"></TextBox>
-        </ScrollViewer>
-        
-        <Separator/>
-        
-        <Button Click="SaveButton_OnClick" Content="Save To File" Padding="5"/>
-        <TextBlock Name="SavedText" FontWeight="Bold" Visibility="Hidden" Foreground="Green"/>
-    </StackPanel>
+        <TextBlock Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="Gray" Margin="10">
+            slimer37
+        </TextBlock>
+    </Grid>
 </Window>

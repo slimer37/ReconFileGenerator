@@ -35,6 +35,7 @@ public partial class MainWindow : Window
     {
         AttachToParentConsole();
         InitializeComponent();
+        UpdatePreview();
     }
 
     void SaveButton_OnClick(object sender, RoutedEventArgs e)
@@ -46,7 +47,7 @@ public partial class MainWindow : Window
             SavedText.Text = $"Created {saveFileDialog.SafeFileName}";
         }
     }
-    
+
     void ScrambleText_OnTextChanged(object sender, TextChangedEventArgs e)
     {
         var scrambleText = ScrambleText.Text;
@@ -63,8 +64,109 @@ public partial class MainWindow : Window
 
             ScrambleTextInvalidWarning.Visibility = anyInvalid ? Visibility.Visible : Visibility.Collapsed;
         }
+        
+        General_OnTextChanged(sender, e);
+    }
+    
+    void General_OnTextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (!string.IsNullOrEmpty(Time.Text) && !float.TryParse(Time.Text.Replace(':', '.'), out info.totalTime))
+            TimeFormatWarning.Visibility = Visibility.Visible;
+        else
+            TimeFormatWarning.Visibility = Visibility.Collapsed;
+        
+        info.scramble = ScrambleText.Text;
+        info.inspectionRotation = InspectionText.Text;
+        info.crossMoves = CrossMoves.Text;
+        info.cubeName = CubeName.Text;
+        
+        info.ollPreAuf = OLLPreAUF.Text;
+        info.ollMoves = OLLMoves.Text;
+        
+        info.pllPreAuf = PLLPreAUF.Text;
+        info.pllMoves = PLLMoves.Text;
 
-        info.scramble = scrambleText;
-        FilePreview.Text = scrambleText;
+        info.auf = AUF.Text;
+
+        UpdatePreview();
+    }
+    
+    void CrossColor_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (CrossColor.SelectedItem == null) return;
+
+        info.crossColor = CrossColor.SelectedItem.ToString() ?? "";
+        
+        if (F2L11.Items.Count > 0)
+            F2L11.Items.Clear();
+        
+        var crossColor = Enum.Parse<Cube.Color>(info.crossColor);
+        foreach (var color in Cube.GetF2LRing(crossColor))
+            F2L11.Items.Add(color);
+        
+        UpdatePreview();
+    }
+
+    void UpdatePreview()
+    {
+        if (Stats == null || FilePreview == null) return;
+        Stats.Text = $"Total Moves (STM): {info.GetSTLTotalMoves()}\nTPS: {info.GetTPS()}";
+        FilePreview.Text = ReconFileFormatter.GetText(info);
+    }
+    
+    void Date_OnSelectedDateChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (Date.SelectedDate == null) return;
+        info.dateTime = (DateTime)Date.SelectedDate;
+        UpdatePreview();
+    }
+    
+    void XCross_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        info.xCrossCount = XCross.SelectedIndex;
+        UpdatePreview();
+    }
+    
+    void OLLShape_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (OLLShape.SelectedItem == null) return;
+        info.ollShape = OLLShape.SelectedItem.ToString() ?? "";
+        UpdatePreview();
+    }
+    
+    void PLLPerm_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (PLLPerm.SelectedItem == null) return;
+        info.pllPerm = PLLPerm.SelectedItem.ToString() ?? "";
+        UpdatePreview();
+    }
+    
+    void OLLSkip_OnClick(object sender, RoutedEventArgs e)
+    {
+        info.ollSkip = OLLSkip.IsChecked ?? false;
+        UpdatePreview();
+    }
+    
+    void PLLSkip_OnClick(object sender, RoutedEventArgs e)
+    {
+        info.pllSkip = PLLSkip.IsChecked ?? false;
+        AUFInput.IsEnabled = info.pllSkip;
+        UpdatePreview();
+    }
+    
+    void CrossColor_OnLoaded(object sender, RoutedEventArgs e)
+    {
+        foreach (var color in Enum.GetNames<Cube.Color>())
+            CrossColor.Items.Add(color);
+    }
+    
+    void OLLShape_OnLoaded(object sender, RoutedEventArgs e)
+    {
+        foreach (var shape in Cube.OLLShapes) OLLShape.Items.Add(shape);
+    }
+    
+    void PLLPerm_OnLoaded(object sender, RoutedEventArgs e)
+    {
+        foreach (var perm in Cube.PLLPerms) PLLPerm.Items.Add(perm);
     }
 }

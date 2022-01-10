@@ -30,14 +30,58 @@ public static class Cube
     
     public static bool IsValidMove(string move) =>
         move.Length is 1 or 2
-        && "rludfbxyz".Contains(char.ToLower(move[0]))
+        && "rludfbmesxyz".Contains(char.ToLower(move[0]))
         && (move.Length == 1 || "2'".Contains(move[1]));
     
-    public static Color[] GetF2LRing(Color crossColor)
+    public static IEnumerable<Color> GetF2LRing(Color crossColor)
     {
         var allColors = Enum.GetValues<Color>().Cast<Color>().ToList();
         allColors.Remove(crossColor);
         allColors.Remove(Opposites[crossColor]);
         return allColors.ToArray();
     }
+
+    public static readonly string[] OLLShapes =
+    {
+        "Awkward Shape",
+        "Big Lightning Bolt",
+        "C Shape",
+        "Corners Oriented",
+        "Cross",
+        "Dot",
+        "Fish Shape",
+        "I Shape",
+        "Knight Move Shape",
+        "P Shape",
+        "Small L Shape",
+        "Small Lightning Bolt",
+        "Square Shape",
+        "T Shape",
+        "W Shap"
+    };
+
+    public static readonly string[] PLLPerms =
+    {
+        "Aa",
+        "Ab",
+        "F",
+        "Ga",
+        "Gb",
+        "Gc",
+        "Gd",
+        "Ja",
+        "Jb",
+        "Ra",
+        "Rb",
+        "T",
+        "E",
+        "Na",
+        "Nb",
+        "V",
+        "Y",
+        "H",
+        "Ua",
+        "Ub",
+        "Z"
+    };
 }
