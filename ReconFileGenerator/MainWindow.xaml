@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReconFileGenerator"
         mc:Ignorable="d"
-        Title="Recon Generator" Height="600" Width="900" ResizeMode="NoResize">
+        Title="Recon Generator" Height="600" Width="900" ResizeMode="CanMinimize">
     <Window.Resources>
         <Style TargetType="Separator"><Setter Property="Height" Value="10"/></Style>
         <Style TargetType="TextBox"><Setter Property="VerticalAlignment" Value="Center"/></Style>
