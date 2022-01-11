@@ -137,7 +137,7 @@
                 <TextBox Name="PLLMoves" TextChanged="General_OnTextChanged"/>
             </DockPanel>
             
-            <DockPanel Name="AUFInput" MaxWidth="100" IsEnabled="False">
+            <DockPanel Name="AUFInput" MaxWidth="100">
                 <Label>AUF</Label>
                 <TextBox Name="AUF" TextChanged="General_OnTextChanged"/>
             </DockPanel>

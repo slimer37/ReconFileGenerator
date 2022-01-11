@@ -150,7 +150,6 @@ public partial class MainWindow : Window
     void PLLSkip_OnClick(object sender, RoutedEventArgs e)
     {
         info.pllSkip = PLLSkip.IsChecked ?? false;
-        AUFInput.IsEnabled = info.pllSkip;
         UpdatePreview();
     }
     

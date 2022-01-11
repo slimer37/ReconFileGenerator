@@ -31,7 +31,7 @@ public static class ReconFileFormatter
         public DateTime dateTime;
 
         public string GetOLLString() => ollSkip ? "Skip" : ollShape + '\n' + (string.IsNullOrEmpty(ollPreAuf) ? "" : ollPreAuf + ' ') + ollMoves;
-        public string GetPLLString() => pllSkip ? "Skip" : pllPerm + " Perm\n" + (string.IsNullOrEmpty(pllPreAuf) ? "" : pllPreAuf + ' ') + pllMoves;
+        public string GetPLLString() => pllSkip ? "Skip" : pllPerm + " Perm\n" + (string.IsNullOrEmpty(pllPreAuf) ? "" : pllPreAuf + ' ') + pllMoves + ' ' + auf;
 
         public string GetXCrossString()
         {
