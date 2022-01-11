@@ -110,7 +110,7 @@ public partial class MainWindow : Window
     void UpdatePreview()
     {
         if (Stats == null || FilePreview == null) return;
-        Stats.Text = $"Total Moves (STM): {info.GetSTLTotalMoves()}\nTPS: {info.GetTPS()}";
+        Stats.Text = $"Total Moves (STM): {info.GetStmTotalMoves()}\nTPS: {info.GetTps()}";
         FilePreview.Text = ReconFileFormatter.GetText(info);
     }
     
@@ -161,11 +161,11 @@ public partial class MainWindow : Window
     
     void OLLShape_OnLoaded(object sender, RoutedEventArgs e)
     {
-        foreach (var shape in Cube.OLLShapes) OLLShape.Items.Add(shape);
+        foreach (var shape in Cube.OllShapes) OLLShape.Items.Add(shape);
     }
     
     void PLLPerm_OnLoaded(object sender, RoutedEventArgs e)
     {
-        foreach (var perm in Cube.PLLPerms) PLLPerm.Items.Add(perm);
+        foreach (var perm in Cube.PllPerms) PLLPerm.Items.Add(perm);
     }
 }

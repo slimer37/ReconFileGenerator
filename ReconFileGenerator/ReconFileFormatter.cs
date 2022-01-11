@@ -30,8 +30,8 @@ public static class ReconFileFormatter
         public string cubeName;
         public DateTime dateTime;
 
-        public string GetOLLString() => ollSkip ? "Skip" : ollShape + '\n' + (string.IsNullOrEmpty(ollPreAuf) ? "" : ollPreAuf + ' ') + ollMoves;
-        public string GetPLLString() => pllSkip ? "Skip" : pllPerm + " Perm\n" + (string.IsNullOrEmpty(pllPreAuf) ? "" : pllPreAuf + ' ') + pllMoves + ' ' + auf;
+        public string GetOllString() => ollSkip ? "Skip" : ollShape + '\n' + (string.IsNullOrEmpty(ollPreAuf) ? "" : ollPreAuf + ' ') + ollMoves;
+        public string GetPllString() => pllSkip ? "Skip" : pllPerm + " Perm\n" + (string.IsNullOrEmpty(pllPreAuf) ? "" : pllPreAuf + ' ') + pllMoves + ' ' + auf;
 
         public string GetXCrossString()
         {
@@ -42,7 +42,7 @@ public static class ReconFileFormatter
             return x + '-';
         }
         
-        public int GetSTLTotalMoves()
+        public int GetStmTotalMoves()
         {
             var allMoves = string.Join(' ', crossMoves, ollMoves, pllMoves);
             
@@ -57,9 +57,9 @@ public static class ReconFileFormatter
             return total;
         }
 
-        public string GetTPS()
+        public string GetTps()
         {
-            var result = GetSTLTotalMoves() / totalTime;
+            var result = GetStmTotalMoves() / totalTime;
             if (float.IsNaN(result) || float.IsInfinity(result))
                 return "0";
             return result.ToString("#0.##");
@@ -77,11 +77,11 @@ public static class ReconFileFormatter
 // F2L [Edge Color/Edge Color]
 (include the two colors of the edge solved e.g. F2L RedWhite)
 (repeat F2L step for any F2L pairs remaining)
-// OLL {i.GetOLLString()}
-// PLL {i.GetPLLString()}
+// OLL {i.GetOllString()}
+// PLL {i.GetPllString()}
 {(i.pllSkip ? "// AUF\n" + i.auf : "")}
 {i.totalTime} 3x3 Single
-{i.GetSTLTotalMoves()} Moves STM {i.GetTPS()}tps
+{i.GetStmTotalMoves()} Moves STM {i.GetTps()}tps
 {i.cubeName}
 {(i.dateTime == default ? "No date set" : i.dateTime.ToString("M/d/yy"))}";
     }

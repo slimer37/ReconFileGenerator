@@ -41,7 +41,7 @@ public static class Cube
         return allColors.ToArray();
     }
 
-    public static readonly string[] OLLShapes =
+    public static readonly string[] OllShapes =
     {
         "Awkward Shape",
         "Big Lightning Bolt",
@@ -60,7 +60,7 @@ public static class Cube
         "W Shap"
     };
 
-    public static readonly string[] PLLPerms =
+    public static readonly string[] PllPerms =
     {
         "Aa",
         "Ab",
