@@ -67,6 +67,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 
                 <StackPanel Grid.Column="0" Margin="0,0,10,0">
@@ -75,12 +76,12 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <ComboBox Name="F2L11"/>
-                        <ComboBox Grid.Column="1" Name="F2L12"/>
+                        <ComboBox Name="F2L11" SelectionChanged = "F2L_OnSelectionChanged"/>
+                        <ComboBox Grid.Column="1" Name="F2L12" SelectionChanged = "F2L_OnSelectionChanged"/>
                     </Grid>
                     <DockPanel>
                         <Label>Moves</Label>
-                        <TextBox/>
+                        <TextBox Name="F2L1M"/>
                     </DockPanel>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Margin="0,0,0,0">
@@ -89,12 +90,12 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <ComboBox Name="F2L21"/>
-                        <ComboBox Grid.Column="1" Name="F2L22"/>
+                        <ComboBox Name="F2L21" SelectionChanged = "F2L_OnSelectionChanged"/>
+                        <ComboBox Grid.Column="1" Name="F2L22" SelectionChanged = "F2L_OnSelectionChanged"/>
                     </Grid>
                     <DockPanel>
                         <Label>Moves</Label>
-                        <TextBox/>
+                        <TextBox Name="F2L2M"/>
                     </DockPanel>
                 </StackPanel>
                 <StackPanel Grid.Column="2" Margin="10,0,0,0">
@@ -103,12 +104,26 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <ComboBox Name="F2L31"/>
-                        <ComboBox Grid.Column="1" Name="F2L32"/>
+                        <ComboBox Name="F2L31" SelectionChanged = "F2L_OnSelectionChanged"/>
+                        <ComboBox Grid.Column="1" Name="F2L32" SelectionChanged = "F2L_OnSelectionChanged"/>
                     </Grid>
                     <DockPanel>
                         <Label>Moves</Label>
-                        <TextBox/>
+                        <TextBox Name="F2L3M"/>
+                    </DockPanel>
+                </StackPanel>
+                <StackPanel Grid.Column="3" Margin="10,0,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox Name="F2L41" SelectionChanged = "F2L_OnSelectionChanged"/>
+                        <ComboBox Grid.Column="1" Name="F2L42" SelectionChanged = "F2L_OnSelectionChanged"/>
+                    </Grid>
+                    <DockPanel>
+                        <Label>Moves</Label>
+                        <TextBox Name="F2L4M"/>
                     </DockPanel>
                 </StackPanel>
             </Grid>

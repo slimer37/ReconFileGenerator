@@ -78,20 +78,36 @@ public partial class MainWindow : Window
 
         UpdatePreview();
     }
-    
+
+    void RefreshF2LDropdowns() => F2LHandler.GenerateFromComboBoxes(Enum.Parse<Cube.Color>(info.crossColor),
+        F2L11, F2L12, F2L21, F2L22, F2L31, F2L32, F2L41, F2L42);
+
     void CrossColor_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (CrossColor.SelectedItem == null) return;
 
         info.crossColor = CrossColor.SelectedItem.ToString() ?? "";
         
-        if (F2L11.Items.Count > 0)
-            F2L11.Items.Clear();
+        RefreshF2LDropdowns();
+        UpdatePreview();
+    }
+
+    void F2L_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var dropdown = (ComboBox)sender;
+        var otherPart = int.Parse(dropdown.Name[^1].ToString()) % 2 + 1;
+        var otherDropdownQuery = dropdown.Name[..^1] + otherPart;
+        var otherDropdown = (ComboBox)(FindName(otherDropdownQuery)
+                                       ?? throw new InvalidOperationException("Couldn't find " + otherDropdownQuery));
+
+        var moveBox = dropdown.Name[..^1] + 'M';
+        var moves = (TextBox)(FindName(moveBox) ?? throw new InvalidOperationException("Couldn't find " + moveBox));
+
+        var col1 = dropdown.SelectedItem?.ToString() ?? "";
+        var col2 = otherDropdown.SelectedItem?.ToString() ?? "";
         
-        var crossColor = Enum.Parse<Cube.Color>(info.crossColor);
-        foreach (var color in Cube.GetF2LRing(crossColor))
-            F2L11.Items.Add(color);
-        
+        info.GenerateF2LText(int.Parse(dropdown.Name[^2].ToString()) - 1, col1 + col2, moves.Text);
+        RefreshF2LDropdowns();
         UpdatePreview();
     }
 

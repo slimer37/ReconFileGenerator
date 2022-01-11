@@ -32,14 +32,6 @@ public static class Cube
         move.Length is 1 or 2
         && "rludfbmesxyz".Contains(char.ToLower(move[0]))
         && (move.Length == 1 || "2'".Contains(move[1]));
-    
-    public static IEnumerable<Color> GetF2LRing(Color crossColor)
-    {
-        var allColors = Enum.GetValues<Color>().Cast<Color>().ToList();
-        allColors.Remove(crossColor);
-        allColors.Remove(Opposites[crossColor]);
-        return allColors.ToArray();
-    }
 
     public static readonly string[] OllShapes =
     {

@@ -13,7 +13,7 @@ public static class ReconFileFormatter
         public string crossColor;
         public string crossMoves;
         public int xCrossCount;
-        
+
         public string ollPreAuf;
         public string ollShape;
         public bool ollSkip;
@@ -30,8 +30,20 @@ public static class ReconFileFormatter
         public string cubeName;
         public DateTime dateTime;
 
-        public string GetOllString() => ollSkip ? "Skip" : ollShape + '\n' + (string.IsNullOrEmpty(ollPreAuf) ? "" : ollPreAuf + ' ') + ollMoves;
-        public string GetPllString() => pllSkip ? "Skip" : pllPerm + " Perm\n" + (string.IsNullOrEmpty(pllPreAuf) ? "" : pllPreAuf + ' ') + pllMoves + ' ' + auf;
+        string[] f2L;
+
+        public void GenerateF2LText(int index, string colors, string moves)
+        {
+            f2L ??= new string[4];
+            f2L[index] = $"//F2L {colors}\n{moves}";
+        }
+        
+        public string GetF2LString() => f2L == null ? "" : string.Join('\n', f2L);
+
+        public string GetOllString() =>
+            ollSkip ? "Skip" : ollShape + '\n' + (string.IsNullOrEmpty(ollPreAuf) ? "" : ollPreAuf + ' ') + ollMoves;
+        public string GetPllString() =>
+            pllSkip ? "Skip" : pllPerm + " Perm\n" + (string.IsNullOrEmpty(pllPreAuf) ? "" : pllPreAuf + ' ') + pllMoves + ' ' + auf;
 
         public string GetXCrossString()
         {
@@ -74,9 +86,7 @@ public static class ReconFileFormatter
 {i.inspectionRotation}
 // {i.crossColor} {i.GetXCrossString()}Cross
 {i.crossMoves}
-// F2L [Edge Color/Edge Color]
-(include the two colors of the edge solved e.g. F2L RedWhite)
-(repeat F2L step for any F2L pairs remaining)
+{i.GetF2LString()}
 // OLL {i.GetOllString()}
 // PLL {i.GetPllString()}
 {(i.pllSkip ? "// AUF\n" + i.auf : "")}
