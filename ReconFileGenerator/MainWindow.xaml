@@ -191,8 +191,15 @@
             </ScrollViewer>
         </StackPanel>
         
-        <TextBlock Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="Gray" Margin="10">
-            slimer37
+        <TextBlock Grid.Column="1" Name="Slimer37" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="Gray" Margin="10"
+                   IsMouseDirectlyOverChanged="Slimer37_OnIsMouseDirectlyOverChanged" MouseDown="Slimer37_OnMouseDown"
+                   MouseUp="Slimer37_OnMouseUp">
+            v1 by slimer37
+        </TextBlock>
+        
+        <TextBlock Grid.Column="1" Name="Smiley" FontSize="300" VerticalAlignment="Center" HorizontalAlignment="Center"
+                   Foreground="Green" Visibility="Collapsed">
+            :)
         </TextBlock>
     </Grid>
 </Window>

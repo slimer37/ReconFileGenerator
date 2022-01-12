@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Microsoft.Win32;
 
 namespace ReconFileGenerator;
@@ -174,11 +175,18 @@ public partial class MainWindow : Window
     
     void OLLShape_OnLoaded(object sender, RoutedEventArgs e)
     {
-        foreach (var shape in Cube.OllShapes) OLLShape.Items.Add(shape);
+        foreach (var shape in Cube.OllShapes)
+            OLLShape.Items.Add(shape);
     }
     
     void PLLPerm_OnLoaded(object sender, RoutedEventArgs e)
     {
-        foreach (var perm in Cube.PllPerms) PLLPerm.Items.Add(perm);
+        foreach (var perm in Cube.PllPerms)
+            PLLPerm.Items.Add(perm);
     }
+    
+    void Slimer37_OnIsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e) =>
+        Smiley.Visibility = (bool)e.NewValue ? Visibility.Visible : Visibility.Collapsed;
+    void Slimer37_OnMouseDown(object sender, MouseEventArgs e) => Smiley.Text = ":D";
+    void Slimer37_OnMouseUp(object sender, MouseEventArgs e) => Smiley.Text = ":)";
 }
