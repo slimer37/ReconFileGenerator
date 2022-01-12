@@ -35,7 +35,7 @@ public static class ReconFileFormatter
         public void GenerateF2LText(int index, string colors, string moves)
         {
             f2L ??= new string[4];
-            f2L[index] = $"//F2L {colors}\n{moves}";
+            f2L[index] = $"//F2L {colors} \n{moves}";
         }
         
         public string GetF2LString() => f2L == null ? "" : string.Join('\n', f2L);
@@ -56,15 +56,21 @@ public static class ReconFileFormatter
         
         public int GetStmTotalMoves()
         {
-            var allMoves = string.Join(' ', crossMoves, ollMoves, pllMoves);
+            var allMoves = string.Join(' ', crossMoves, ollMoves, pllMoves, ollPreAuf, pllPreAuf, auf,
+                string.Join(' ', f2L ?? Array.Empty<string>()));
             
             if (string.IsNullOrEmpty(allMoves)) return 0;
             
             var total = 0;
             
             foreach (var move in allMoves.Split(' '))
-                if (Cube.IsValidMove(move) && !"xyz".Contains(char.ToLower(move[0])))
+            {
+                var modified = move.Replace("\n", "");
+                if (string.IsNullOrWhiteSpace(move)) continue;
+                Console.WriteLine("[" + modified + "] is valid? " + (Cube.IsValidMove(modified) && !"xyz".Contains(char.ToLower(move[0]))));
+                if (Cube.IsValidMove(modified) && !"xyz".Contains(char.ToLower(move[0])))
                     total++;
+            }
             
             return total;
         }

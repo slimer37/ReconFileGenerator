@@ -81,7 +81,7 @@
                     </Grid>
                     <DockPanel>
                         <Label>Moves</Label>
-                        <TextBox Name="F2L1M"/>
+                        <TextBox Name="F2L1M" TextChanged="F2L_OnTextChanged"/>
                     </DockPanel>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Margin="0,0,0,0">
@@ -95,7 +95,7 @@
                     </Grid>
                     <DockPanel>
                         <Label>Moves</Label>
-                        <TextBox Name="F2L2M"/>
+                        <TextBox Name="F2L2M" TextChanged="F2L_OnTextChanged"/>
                     </DockPanel>
                 </StackPanel>
                 <StackPanel Grid.Column="2" Margin="10,0,0,0">
@@ -109,7 +109,7 @@
                     </Grid>
                     <DockPanel>
                         <Label>Moves</Label>
-                        <TextBox Name="F2L3M"/>
+                        <TextBox Name="F2L3M" TextChanged="F2L_OnTextChanged"/>
                     </DockPanel>
                 </StackPanel>
                 <StackPanel Grid.Column="3" Margin="10,0,0,0">
@@ -123,7 +123,7 @@
                     </Grid>
                     <DockPanel>
                         <Label>Moves</Label>
-                        <TextBox Name="F2L4M"/>
+                        <TextBox Name="F2L4M" TextChanged="F2L_OnTextChanged"/>
                     </DockPanel>
                 </StackPanel>
             </Grid>

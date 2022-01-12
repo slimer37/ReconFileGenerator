@@ -94,20 +94,29 @@ public partial class MainWindow : Window
 
     void F2L_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        var dropdown = (ComboBox)sender;
-        var otherPart = int.Parse(dropdown.Name[^1].ToString()) % 2 + 1;
-        var otherDropdownQuery = dropdown.Name[..^1] + otherPart;
-        var otherDropdown = (ComboBox)(FindName(otherDropdownQuery)
-                                       ?? throw new InvalidOperationException("Couldn't find " + otherDropdownQuery));
+        RefreshF2LDropdowns();
+        RefreshF2LPairInfo(((Control)sender).Name);
+    }
 
-        var moveBox = dropdown.Name[..^1] + 'M';
+    void F2L_OnTextChanged(object sender, TextChangedEventArgs e) => RefreshF2LPairInfo(((Control)sender).Name);
+
+    void RefreshF2LPairInfo(string f2LPairItemName)
+    {
+        var pairLabel = f2LPairItemName[..^1];
+        var dropdown1 = FindDropdown(pairLabel + '1');
+        var dropdown2 = FindDropdown(pairLabel + '2');
+
+        var moveBox = pairLabel + 'M';
         var moves = (TextBox)(FindName(moveBox) ?? throw new InvalidOperationException("Couldn't find " + moveBox));
 
-        var col1 = dropdown.SelectedItem?.ToString() ?? "";
-        var col2 = otherDropdown.SelectedItem?.ToString() ?? "";
+        var col1 = dropdown1.SelectedItem?.ToString() ?? "";
+        var col2 = dropdown2.SelectedItem?.ToString() ?? "";
         
-        info.GenerateF2LText(int.Parse(dropdown.Name[^2].ToString()) - 1, col1 + '/' + col2, moves.Text);
-        RefreshF2LDropdowns();
+        info.GenerateF2LText(int.Parse(pairLabel[^1].ToString()) - 1, col1 + '/' + col2, moves.Text);
+
+        ComboBox FindDropdown(string query) =>
+            (ComboBox)(FindName(query) ?? throw new InvalidOperationException("Couldn't find " + query));
+        
         UpdatePreview();
     }
 
