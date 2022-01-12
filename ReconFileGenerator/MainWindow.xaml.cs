@@ -106,7 +106,7 @@ public partial class MainWindow : Window
         var col1 = dropdown.SelectedItem?.ToString() ?? "";
         var col2 = otherDropdown.SelectedItem?.ToString() ?? "";
         
-        info.GenerateF2LText(int.Parse(dropdown.Name[^2].ToString()) - 1, col1 + col2, moves.Text);
+        info.GenerateF2LText(int.Parse(dropdown.Name[^2].ToString()) - 1, col1 + '/' + col2, moves.Text);
         RefreshF2LDropdowns();
         UpdatePreview();
     }
