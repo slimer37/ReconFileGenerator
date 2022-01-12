@@ -13,7 +13,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition MaxWidth="400"/>
         </Grid.ColumnDefinitions>
         
         <StackPanel Margin="10">
@@ -66,11 +66,14 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 
-                <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
+                <StackPanel Grid.Column="0" Margin="0, 0, 5, 0">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -84,7 +87,7 @@
                         <TextBox Name="F2L1M" TextChanged="F2L_OnTextChanged"/>
                     </DockPanel>
                 </StackPanel>
-                <StackPanel Grid.Column="1" Margin="0,0,0,0">
+                <StackPanel Grid.Column="1" Margin="5, 0, 0, 0">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -98,7 +101,7 @@
                         <TextBox Name="F2L2M" TextChanged="F2L_OnTextChanged"/>
                     </DockPanel>
                 </StackPanel>
-                <StackPanel Grid.Column="2" Margin="10,0,0,0">
+                <StackPanel Grid.Row="1" Grid.Column="0" Margin="0, 0, 5, 0">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -112,7 +115,7 @@
                         <TextBox Name="F2L3M" TextChanged="F2L_OnTextChanged"/>
                     </DockPanel>
                 </StackPanel>
-                <StackPanel Grid.Column="3" Margin="10,0,0,0">
+                <StackPanel Grid.Row="1" Grid.Column="1" Margin="5, 0, 0, 0">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
