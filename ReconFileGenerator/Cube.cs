@@ -49,7 +49,7 @@ public static class Cube
         "Small Lightning Bolt",
         "Square Shape",
         "T Shape",
-        "W Shap"
+        "W Shape"
     };
 
     public static readonly string[] PllPerms =
