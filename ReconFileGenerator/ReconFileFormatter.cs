@@ -67,7 +67,6 @@ public static class ReconFileFormatter
             {
                 var modified = move.Replace("\n", "");
                 if (string.IsNullOrWhiteSpace(move)) continue;
-                Console.WriteLine("[" + modified + "] is valid? " + (Cube.IsValidMove(modified) && !"xyz".Contains(char.ToLower(move[0]))));
                 if (Cube.IsValidMove(modified) && !"xyz".Contains(char.ToLower(move[0])))
                     total++;
             }
