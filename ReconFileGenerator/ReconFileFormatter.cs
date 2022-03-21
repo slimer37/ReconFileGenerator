@@ -65,9 +65,9 @@ public static class ReconFileFormatter
             
             foreach (var move in allMoves.Split(' '))
             {
-                var modified = move.Replace("\n", "");
                 if (string.IsNullOrWhiteSpace(move)) continue;
-                if (Cube.IsValidMove(modified) && !"xyz".Contains(char.ToLower(move[0])))
+                var modified = move.Replace("\n", "");
+                if (Cube.IsValidMove(modified) && !"xyz".Contains(char.ToLower(modified[0])))
                     total++;
             }
             
